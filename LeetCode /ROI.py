@@ -4,6 +4,6 @@ def ROI(invested, current):
     resultsTxt = open("results.txt", 'a')
     
 
-ROI(29500, 34932.60)
+ROI(29500, 34932.600)
 
 # raaa
