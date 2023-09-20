@@ -18,7 +18,7 @@ end = "2016-01-01"
 #Tickers for Each Bank: Bank of America - BAC , CitiGroup - C, Goldman Sachs - GS , JPMorgan Chase - JPM, Morgan Stanley MS, Wells Fargo - WFC
 yfin.pdr_override()
 # Bank of America
-BAC = wb.get_data_yahoo("BAC", start, end)
+BAC = wb.get_data_yahoo('BAC', start, end)
 # CitiGroup
 C = wb.DataReader('C', start, end)
 # Goldman Sachs
@@ -59,9 +59,11 @@ print(max)
 # new empty DataFrame 
 returns = pd.DataFrame()
 
-# returns for each bank stocks
+# create column represent returns for each bank stocks
 # pct_change() on Close column to create return values 
-
 for tick in tickers:
-    returns[]
-# returns.pct_change()
+    # returns[tick + " Returns"] = (bank_stocks.xs(tick, level='Bank Ticker', axis = 1)).pct_change()
+    returns[tick + " Returns"] = bank_stocks[tick]['Close'].pct_change()
+print(returns)
+
+# print(bank_stocks.xs('BAC', level='Bank Ticker',  axis=1).pct_change())
