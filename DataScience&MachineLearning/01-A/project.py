@@ -4,6 +4,7 @@ import numpy as np
 import datetime 
 import os 
 import yfinance as yfin
+import seaborn as sns
 
 #ment to u
 #explority data analysis of stock priceses, to practice visualizationas and Pandas 
@@ -67,3 +68,6 @@ for tick in tickers:
 print(returns)
 
 # print(bank_stocks.xs('BAC', level='Bank Ticker',  axis=1).pct_change())
+
+# pairplot of returns df
+sns.pairplot(data = returns)
