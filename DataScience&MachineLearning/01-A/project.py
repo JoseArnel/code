@@ -5,6 +5,7 @@ import datetime
 import os 
 import yfinance as yfin
 import seaborn as sns
+import matplotlib as plt
 
 #ment to u
 #explority data analysis of stock priceses, to practice visualizationas and Pandas 
@@ -67,7 +68,26 @@ for tick in tickers:
     returns[tick + " Returns"] = bank_stocks[tick]['Close'].pct_change()
 print(returns)
 
-# print(bank_stocks.xs('BAC', level='Bank Ticker',  axis=1).pct_change())
-
 # pairplot of returns df
-sns.pairplot(data = returns)
+#sns.pairplot(data = returns)
+
+# dates each bank stocks had the best and worst single day return 
+
+# best single day return
+rmax = returns.idxmax()
+print(rmax)
+# 2009-01-20 - Barack Obama Inauguration
+# 4 banks returned same day of worst day
+
+# worst single day return
+rmin = returns.idxmin()
+print(rmin)
+# Morgan lost 80% of its market, 42% slide in its share price in 2 days
+# jp morgans next day is better 
+
+
+# sns.distplot(returns.loc['2015-01-01': '2015-12-31']['MS Returns'], color = 'green', bins = 50)
+
+for ticks in tickers:
+    bank_stocks[ticks]['Close'].plot(label = ticks, figsize=(12,4))
+plt.legend()
