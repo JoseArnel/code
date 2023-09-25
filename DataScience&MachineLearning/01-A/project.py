@@ -85,12 +85,21 @@ print(rmin)
 # Morgan lost 80% of its market, 42% slide in its share price in 2 days
 # jp morgans next day is better 
 
+# the lower the std, the MORE CLUSTERED the distribution towards mean (more reliable)
+# the higher the std, the MORE SPREAD out the distribution (the more riskier)
+# STANDARD DEVIATIONS of returns (which is the riskiest)
+rstd = returns.std()
+print(rstd)
+# the riskiest stock: C, the least riskiest: GS
+
+# std for year 2015
+rstd_2015 = returns.loc['2015-01-03':'2015-12-31'].std()
+# riskiest in 2015: MS, least riskiest in 2015: WFC
+print(rstd_2015)
 
 # sns.distplot(returns.loc['2015-01-01': '2015-12-31']['MS Returns'], color = 'green', bins = 50)
+# for ticks in tickers:
+#     bank_stocks[ticks]['Close'].plot(label = ticks, figsize=(12,4))
+# plt.legend()
+# plt.show()
 
-for ticks in tickers:
-    bank_stocks[ticks]['Close'].plot(label = ticks, figsize=(12,4))
-plt.legend()
-
-
-ada
