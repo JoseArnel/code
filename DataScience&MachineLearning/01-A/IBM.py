@@ -1,21 +1,18 @@
 
-#One of them was about binary numbers in a linked-list and 
-#ordering them in some arrays and the other was about subsets and ordering those in arrays as well. No sql stuff
+#One of them was about binary numbers in a linked-list and ordering them in some arrays and the other was about subsets and ordering those in arrays as well. No sql stuff
 
 #Udemy should have a number of Python algorithms courses that should explain that one. Leetcode.com
-#demy should have a number of Python algorithms courses that should explain that one. Leetcode.com  
-
 #hackerrank & leetcode, data structures and leetcode
 
 # 2 leetcode easy-medium problems
 # a dummy dataset they ask you to clean, build a model,
-# and make some visualizations. I used python for this, not sure if they allowed other languages
+# and make some visualizations. I used python for this
 
 # how to fit into this role
 
 # Write a program to find HCF of 2 numbers without recursion 
 #include<iostream>
-int gcd(int,int);
+int gcd(int,int);;
 int main()
 {
     int m,n,ans;

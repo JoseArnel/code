@@ -91,3 +91,6 @@ print(rmin)
 for ticks in tickers:
     bank_stocks[ticks]['Close'].plot(label = ticks, figsize=(12,4))
 plt.legend()
+
+
+ada
