@@ -4,8 +4,12 @@ import numpy as np
 import datetime 
 import os 
 import yfinance as yfin
+
 import seaborn as sns
-import matplotlib as plt
+import matplotlib.pyplot as plt
+sns.set_style('whitegrid')
+
+# import classes, and make functions, and a main
 
 #ment to u
 #explority data analysis of stock priceses, to practice visualizationas and Pandas 
@@ -103,3 +107,36 @@ print(rstd_2015)
 # plt.legend()
 # plt.show()
 
+# DISTPLOT using seaborn, for Morgan Stanley's 2015 returns
+sns.distplot(returns.loc['2015-01-01':'2015-12-31']['MS Returns'], color = 'green', bins=100)
+#analysis: MS seems to be fairly distributed in 2015
+
+# DISTPLOT using seaborn, for CitiGroup's 2008 returns
+sns.distplot(returns['2008-01-01': '2008-12-31']['C Returns'], color = 'red', bins = 50)
+#analysis: This was the during the Collapse of CitiGroup where the stock had dropped 76% (second worst drop in terms of banks)
+#further shown in the chart where it depicts high volatility within the year
+
+
+##################
+# Visualizations #
+##################
+
+# plot for Close Price for each bank 
+# for ticks in tickers:
+#     bank_stocks[ticks]['Close'].plot(label=ticks, figsize=(12,4))
+# plt.show()
+
+# using xs instead
+# bank_stocks.xs(key = 'Close', level='Stock Info', axis = 1).plot()
+
+
+# calculating MOVING AVERAGES 
+# 30 day average of Bank of America's Close Price stock for 2008
+BAC.loc['2008-01-01':'2009-01-01']['Close'].rolling(window=30).mean().plot(label='30 Day Mov')
+BAC.loc['2008-01-01':'2008-01-01']['Close'].plot(label = 'BAC Close')
+plt.show()
+
+# plt.figure(figsize = (12,4))
+# BAC['Close'].ix['2008-01-01':'2009-01-01'].rolling(window=30).mean().plot(label='30 day Mov')
+# BAC['Close'].ix['2008-01-01':'2009-01-01'].plot(label='BAC Close')
+# plt.legend()
