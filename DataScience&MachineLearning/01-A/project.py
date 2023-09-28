@@ -11,10 +11,9 @@ sns.set_style('whitegrid')
 
 # import classes, and make functions, and a main
 
-#ment to u
-#explority data analysis of stock priceses, to practice visualizationas and Pandas 
-# focus on bank stocks and see how they progress throughout the financail crisis all the way to early 2016
-# 2008-2009 economic crash 
+# Exploratory Data Analysis of stock prices, to practice visualizationas, python, and external libraries such as; Pandas, Matplot, Seaborn, Numpy
+# This project focuses on American Bank Stocks during the 2008-2009 Economic Crash, to see how they they progress and recovered from the Financial Crisis
+# to more recent dates of the early 2016
 
 ########
 # DATA #
@@ -65,8 +64,8 @@ print(max)
 # new empty DataFrame 
 returns = pd.DataFrame()
 
-# create column represent returns for each bank stocks
 # pct_change() on Close column to create return values 
+# create column represent returns for each bank stocks
 for tick in tickers:
     # returns[tick + " Returns"] = (bank_stocks.xs(tick, level='Bank Ticker', axis = 1)).pct_change()
     returns[tick + " Returns"] = bank_stocks[tick]['Close'].pct_change()
