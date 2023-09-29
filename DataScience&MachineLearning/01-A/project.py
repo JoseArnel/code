@@ -130,13 +130,16 @@ sns.distplot(returns['2008-01-01': '2008-12-31']['C Returns'], color = 'red', bi
 
 # calculating MOVING AVERAGES 
 # 30 day average of Bank of America's Close Price stock for 2008
-BAC.loc['2008-01-01':'2009-01-01']['Close'].rolling(window=30).mean().plot(label='30 Day Mov')
-BAC.loc['2008-01-01':'2008-01-01']['Close'].plot(label = 'BAC Close')
-plt.show()
-
+# BACma = BAC.loc['2008-01-01': '2008-12-30']['Close'].rolling(30).mean()
+# BACma.plot(label='30 Day Mov')
+# BAC.loc['2008-01-01':'2009-01-01']['Close'].rolling(window=30).mean().plot(label='30 Day Mov')
+# BAC.loc['2008-01-01':'2008-01-01']['Close'].plot(label = 'BAC Close')
 # plt.figure(figsize = (12,4))
-# BAC['Close'].ix['2008-01-01':'2009-01-01'].rolling(window=30).mean().plot(label='30 day Mov')
-# BAC['Close'].ix['2008-01-01':'2009-01-01'].plot(label='BAC Close')
 # plt.legend()
+# plt.show()
 
+corr = bank_stocks.xs(key = 'Close', level = 'Stock Info', axis = 1).corr()
+corr
+sns.heatmap(corr, annot = True)
 # Jose Arnel Manipon
+
