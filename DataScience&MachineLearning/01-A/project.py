@@ -1,3 +1,4 @@
+# Jose Arnel Manipon
 import pandas_datareader.data as wb
 import pandas as pd
 import numpy as np
@@ -79,25 +80,23 @@ print(returns)
 # best single day return
 rmax = returns.idxmax()
 print(rmax)
-# 2009-01-20 - Barack Obama Inauguration
-# 4 banks returned same day of worst day
+#analysis: 2009-01-20 - Barack Obama Inauguration,  4 banks returned same day of worst day
 
 # worst single day return
 rmin = returns.idxmin()
 print(rmin)
-# Morgan lost 80% of its market, 42% slide in its share price in 2 days
-# jp morgans next day is better 
+#analysis: Morgan lost 80% of its market, 42% slide in its share price in 2 days, JP Moregans next day is better 
 
 # the lower the std, the MORE CLUSTERED the distribution towards mean (more reliable)
 # the higher the std, the MORE SPREAD out the distribution (the more riskier)
 # STANDARD DEVIATIONS of returns (which is the riskiest)
 rstd = returns.std()
 print(rstd)
-# the riskiest stock: C, the least riskiest: GS
+#analysis: the riskiest stock is C & the least riskiest is GS
 
 # std for year 2015
 rstd_2015 = returns.loc['2015-01-03':'2015-12-31'].std()
-# riskiest in 2015: MS, least riskiest in 2015: WFC
+#analysis: the riskiest in 2015 was MS and least riskiest in 2015 was WFC
 print(rstd_2015)
 
 # sns.distplot(returns.loc['2015-01-01': '2015-12-31']['MS Returns'], color = 'green', bins = 50)
@@ -139,3 +138,5 @@ plt.show()
 # BAC['Close'].ix['2008-01-01':'2009-01-01'].rolling(window=30).mean().plot(label='30 day Mov')
 # BAC['Close'].ix['2008-01-01':'2009-01-01'].plot(label='BAC Close')
 # plt.legend()
+
+# Jose Arnel Manipon
