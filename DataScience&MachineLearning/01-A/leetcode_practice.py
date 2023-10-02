@@ -12,3 +12,12 @@ def findTheDifference(self, s: str, t: str) -> str:
 
         c = sum2 - sum
         return(chr(c))
+
+def isPalindrome(self, x: int) -> bool:
+    reversed_num = 0
+    original = x
+
+    while x > reversed_num:
+        reversed_num = reversed_num * 10 + x % 10
+        x //= 10
+    return x == reversed_num or x == reversed_num // 10

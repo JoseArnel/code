@@ -12,7 +12,7 @@
 
 # Write a program to find HCF of 2 numbers without recursion 
 #include<iostream>
-int gcd(int,int);;
+int gcd(int,int);
 int main()
 {
     int m,n,ans;

@@ -74,3 +74,4 @@ if __name__ == '__main__':
 # 2.Binary Number in a Linked list
 # given a binary, linked list node. data = 
 # return number from binary
+
