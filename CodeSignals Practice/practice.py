@@ -21,6 +21,33 @@ def stringPairs(a, b, k):
             count += 1
     return count
 
+def countDigits(a):
+    alldigits = ''.join(map(str,a)) # cuts all digits into one string 
+    counts = [0] * len(alldigits)
+    for digit in alldigits:
+        counts[int(digit)] += 1
+    maxcount = max(counts)  
+    return [digit for digit, count in enumerate(counts) if count == maxcount]
+
+# dictionary / map
+def countDigits(a):
+    alldigits = ''.join(map(str,a)) # cuts all digits into one string 
+    dict = {} # dictionary 
+
+    for i in alldigits: 
+        try: 
+            dict[i] += 1
+        except:
+            dict[i] = 1
+    print(dict)
+    
+    max = 0 
+    for i in dict: 
+        if(dict[i] > max):
+            max = dict[i]
+    l=[int(k) for k,v in dict.items() if v==max]
+    return (sorted(l)) 
+
 ##a: [1, 2, 3]
 ##b: [1, 2, 3]
 ##k: 31
