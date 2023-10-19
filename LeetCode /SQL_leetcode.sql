@@ -1,6 +1,18 @@
+
+/* SQL 50  
+Q1: 1683. Invalid Tweets */
+SELECT tweet_id 
+FROM Tweets
+WHERE LENGTH(content) > 15
+
+
+
+
+
 595. Big Countries
 SELECT name, population, area
 FROM World
+
 WHERE world.population >= 25000000 or world.area >= 3000000
 
 # 596. Classes More Than 5 Students
