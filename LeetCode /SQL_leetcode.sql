@@ -1,9 +1,109 @@
 
-/* SQL 50  
-Q1: 1683. Invalid Tweets */
+/* SQL 50  Select */
+/* Q1: 1757. Recyclable and Low Fat Products */
+SELECT product_id
+FROM Products
+WHERE low_fats = 'Y' and recyclable = 'Y'
+
+/* Q2: 584. Find Customer Referee */
+SELECT name
+FROM Customer
+WHERE referee_id != 2 OR referee_id is NULL
+
+/* Q3: 595. Big Countries */
+SELECT name, population, area
+FROM World
+WHERE area >= 3000000 OR population >=25000000
+
+/* Q4: 1148. Article Views I */
+SELECT distinct author_id as id
+FROM Views
+WHERE author_id = viewer_id
+ORDER BY author_id ASC
+
+/* Q5: 1683. Invalid Tweets */
 SELECT tweet_id 
 FROM Tweets
 WHERE LENGTH(content) > 15
+
+/* Basic Joins */
+/* Q6: 1378. Replace Employee ID With The Unique Identifier */
+SELECT EmployeeUNI.unique_id as unique_id, Employees.name as name
+FROM Employees
+LEFT JOIN EmployeeUNI ON Employees.id = EmployeeUNI.id
+
+/* Q7: 1068. Product Sales Analysis I */
+SELECT product_name, year, price
+FROM Sales
+LEFT JOIN Product ON Sales.product_id = Product.product_id
+
+/* Q8: 1581. Customer Who Visited but Did Not Make Any Transactions */
+SELECT customer_id, count(visit_id) as count_no_trans
+FROM visits
+WHERE visit_id not in(
+    SELECT transactions.visit_id 
+    FROM visits 
+    INNER JOIN transactions on transactions.visit_id = visits.visit_id
+)
+GROUP BY customer_id
+
+/* PSUEDO
+Counting How many Transactions We're not made / Visits where no transactions were made
+Output: customer_id, count_no_trans
+Join Where Visit id equals
+Count, Where */
+
+/* Q9: 197. Rising Temperature */
+SELECT w1.id 
+FROM Weather w1, Weather w2 
+WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 and w1.temperature > w2.temperature
+
+/* Q10: 1661. Average Time of Process per Machine */
+SELECT a1.machine_id, round((avg(a1.timestamp - a2.timestamp)),3) as processing_time
+FROM Activity a1
+JOIN Activity a2 ON a1.machine_id = a2.machine_id and a1.process_id = a2.process_id 
+and a2.activity_type = 'start' and a1.activity_type = 'end'
+GROUP BY a1.machine_id
+
+-- SELECT sum(DATADIFF(second, a1.timestamp, a2.timestamp))/count(# processes)
+-- coun
+-- SELECT customer_id, count(visit_id) as count_no_trans
+-- FROM visits
+-- WHERE visit_id not in(
+--     SELECT transactions.visit_id 
+--     FROM visits 
+--     INNER JOIN transactions on transactions.visit_id = visits.visit_id
+-- )
+-- GROUP BY customer_id
+
+/* Q11: 577. Employee Bonus */
+SELECT name, bonus
+FROM Employee
+LEFT JOIN Bonus on Employee.empId = Bonus.empId
+WHERE Bonus.bonus < 1000 or Bonus.bonus IS NULL
+
+/* Q12: 1280. Students and Examinations */
+SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
+FROM Students
+CROSS JOIN Subjects
+-- CROSS JOIN
+LEFT JOIN Examinations ON Students.student_id = Examinations.student_id and Subjects.subject_name = Examinations.subject_name
+GROUP BY student_id, subject_name
+ORDER BY student_id
+
+/* Q13: 570. Managers with at Least 5 Direct Reports */
+SELECT e.name
+FROM Employee as e
+INNER JOIN Employee AS m ON m.managerId = e.id
+GROUP BY m.managerId
+HAVING COUNT(m.managerId) >= 5
+
+
+
+
+
+
+
 
 
 
@@ -12,7 +112,6 @@ WHERE LENGTH(content) > 15
 595. Big Countries
 SELECT name, population, area
 FROM World
-
 WHERE world.population >= 25000000 or world.area >= 3000000
 
 # 596. Classes More Than 5 Students
