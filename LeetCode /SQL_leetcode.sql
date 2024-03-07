@@ -1,5 +1,6 @@
 
-/* SQL 50  Select */
+/* SQL 50  
+Select */
 /* Q1: 1757. Recyclable and Low Fat Products */
 SELECT product_id
 FROM Products
@@ -98,6 +99,18 @@ INNER JOIN Employee AS m ON m.managerId = e.id
 GROUP BY m.managerId
 HAVING COUNT(m.managerId) >= 5
 
+/* Basic Aggregate Functions */
+/* Q1: Not Boring Movies*/
+SELECT * 
+FROM Cinema 
+Where description != 'boring' AND id%2 
+ORDER BY rating DESC
+
+/* 1075. Project Employees I */
+SELECT project_id, ROUND(AVG(experience_years),2) as average_years
+FROM Project as P
+INNER JOIN Employee as e ON e.employee_id = p.employee_id
+GROUP BY project_id
 
 
 
