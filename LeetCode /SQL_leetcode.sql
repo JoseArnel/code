@@ -112,7 +112,12 @@ FROM Project as P
 INNER JOIN Employee as e ON e.employee_id = p.employee_id
 GROUP BY project_id
 
-
+/* 1633. Percentage of Users Attended a Contest */
+SELECT contest_id, ROUND(COUNT(r.user_id) * 100/ (SELECT count(user_id) FROM Users), 2) as percentage 
+FROM Register as r
+LEFT JOIN Users as u on u.user_id = r.user_id
+GROUP BY r.contest_id
+ORDER BY percentage DESC, contest_id
 
 
 
