@@ -118,7 +118,12 @@ FROM Register as r
 LEFT JOIN Users as u on u.user_id = r.user_id
 GROUP BY r.contest_id
 ORDER BY percentage DESC, contest_id
-
+1211. Queries Quality and Percentage
+/* 1211. Queries Quality and Percentage */
+SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND((AVG(IF(rating<3,1,0)*100)),2) as poor_query_percentage 
+FROM Queries
+WHERE query_name is NOT NULL
+GROUP by query_name
 
 
 
