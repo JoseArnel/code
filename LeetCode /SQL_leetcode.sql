@@ -124,6 +124,12 @@ SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND((AVG(IF(ratin
 FROM Queries
 WHERE query_name is NOT NULL
 GROUP by query_name
+/* 1193. Monthly Transactions I */
+SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, SUM(IF(state='approved',1, 0)) as approved_count 
+FROM Transactions 
+GROUP BY month, country
+
+
 
 
 
