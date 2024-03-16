@@ -125,7 +125,7 @@ FROM Queries
 WHERE query_name is NOT NULL
 GROUP by query_name
 /* 1193. Monthly Transactions I */
-SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, SUM(IF(state='approved',1, 0)) as approved_count 
+SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, SUM(IF(state='approved',1,0)) as approved_count, SUM(amount) as trans_total_amount, SUM(IF(state='approved',amount,0)) as approved_total_amount
 FROM Transactions 
 GROUP BY month, country
 
