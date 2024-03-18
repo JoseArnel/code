@@ -129,7 +129,14 @@ SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, 
 FROM Transactions 
 GROUP BY month, country
 
-
+Select 
+    round(avg(order_date = customer_pref_delivery_date)*100, 2) as immediate_percentage
+from Delivery
+where (customer_id, order_date) in (
+  Select customer_id, min(order_date) 
+  from Delivery
+  group by customer_id
+);
 
 
 
