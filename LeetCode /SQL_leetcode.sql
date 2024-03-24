@@ -140,6 +140,21 @@ WHERE (customer_id, order_date) IN (
 )
 
 
+
+/* 2356. Number of Unique Subjects Taught by Each  */
+SELECT teacher_id, COUNT(DISTINCT subject_id) as cnt
+FROM Teacher
+GROUP BY teacher_id
+
+/* 596. Classes More Than 5 Students  */
+SELECT class
+FROM Courses 
+GROUP BY class
+HAVING COUNT(student) >= 5
+
+
+
+
 595. Big Countries
 SELECT name, population, area
 FROM World
