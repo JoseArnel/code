@@ -158,6 +158,16 @@ FROM Followers
 GROUP BY user_id
 ORDER BY user_id ASC
 
+/* 619. Biggest Single Number  */
+SELECT MAX(num) as num
+FROM (
+    SELECT num
+    FROM MyNumbers
+    GROUP BY num
+    HAVING COUNT(num) = 1
+)
+AS unique_numbers
+
 
 
 595. Big Countries
