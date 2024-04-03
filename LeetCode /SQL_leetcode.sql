@@ -168,6 +168,13 @@ FROM (
 )
 as unique_max
 
+/* 1045. Customers Who Bought All Products */
+SELECT c.customer_id
+FROM Customer c
+INNER JOIN Product p ON c.product_key = p.product_key
+GROUP BY c.customer_id
+HAVING count(*) != (SELECT COUNT(*) p)
+
 
 595. Big Countries
 SELECT name, population, area
