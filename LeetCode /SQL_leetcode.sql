@@ -173,7 +173,12 @@ SELECT c.customer_id
 FROM Customer c
 INNER JOIN Product p ON c.product_key = p.product_key
 GROUP BY c.customer_id
-HAVING count(*) != (SELECT COUNT(*) p)
+HAVING count(*) != (SELECT COUNT(*) p) 
+/* review solutionn */
+
+
+
+
 
 
 595. Big Countries
