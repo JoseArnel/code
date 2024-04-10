@@ -178,8 +178,8 @@ HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
 FROM Employee
-WHERE primary_flag = 'N'
-GROUP BY employee_id
+WHERE primary_flag = 'Y'
+
 
 
 
