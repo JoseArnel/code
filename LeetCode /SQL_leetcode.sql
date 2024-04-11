@@ -140,6 +140,13 @@ WHERE (customer_id, order_date) IN (
 )
 
 
+/* 1141. User Activity for the Past 30 Days I  */
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users
+FROM Activity 
+WHERE activity_date > '2019-06-27' and activity_date <= '2019-07-27'
+GROUP BY activity_date
+
+
 
 /* 2356. Number of Unique Subjects Taught by Each  */
 SELECT teacher_id, COUNT(DISTINCT subject_id) as cnt
