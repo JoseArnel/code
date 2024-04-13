@@ -140,6 +140,24 @@ WHERE (customer_id, order_date) IN (
 )
 
 
+/* 1070. Product Sales Analysis III */
+SELECT product_id, year as first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) IN (
+    SELECT product_id, MIN(year)
+    FROM Sales
+    GROUP BY product_id
+)
+
+#Approach 2;  Using IN
+SELECT product_id, year AS first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) in (
+    SELECT product_id, MIN(year) 
+    FROM Sales
+    GROUP BY product_id
+)
+
 /* 1141. User Activity for the Past 30 Days I  */
 SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users
 FROM Activity 
