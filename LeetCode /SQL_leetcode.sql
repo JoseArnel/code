@@ -139,6 +139,15 @@ WHERE (customer_id, order_date) IN (
     GROUP BY customer_id
 )
 
+/* 1789. Primary Department for Each Employee */
+SELECT employee_id, department_id
+FROM Employee
+GROUP BY employee_id
+UNION 
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+
 
 /* 1070. Product Sales Analysis III */
 SELECT product_id, year as first_year, quantity, price
