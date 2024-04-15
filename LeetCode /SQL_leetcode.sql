@@ -106,6 +106,15 @@ FROM Cinema
 Where description != 'boring' AND id%2 
 ORDER BY rating DESC
 
+/* 1251. Average Selling Price */
+SELECT p.product_id, SUM(p.price * u.units)/ SUM(u.units) as average_price
+FROM Prices p
+INNER JOIN UnitsSold u ON p.product_id = u.product_id
+GROUP BY u.product_id
+
+!!!
+
+
 /* 1075. Project Employees I */
 SELECT project_id, ROUND(AVG(experience_years),2) as average_years
 FROM Project as P
