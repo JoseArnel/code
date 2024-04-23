@@ -99,6 +99,31 @@ INNER JOIN Employee AS m ON m.managerId = e.id
 GROUP BY m.managerId
 HAVING COUNT(m.managerId) >= 5
 
+/* Q14: 1934. Confirmation Rate */
+SELECT s.user_id, ifnull(AVG(action = 'confirmed'),0) as confirmation_rate
+FROM Signups s
+LEFT JOIN Confirmations c ON s.user_id = c.user_id
+GROUP BY s.user_id
+
+
+SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
+FROM Students
+CROSS JOIN Subjects
+-- CROSS JOIN
+LEFT JOIN Examinations ON Students.student_id = Examinations.student_id and Subjects.subject_name = Examinations.subject_name
+GROUP BY student_id, subject_name
+ORDER BY student_id
+
+select s.user_id, round(avg(if(c.action="confirmed",1,0)),2) as confirmation_rate
+from Signups as s left join Confirmations as c on s.user_id= c.user_id group by user_id;
+
+SELECT a.user_id, round(ifnull(avg(action = 'confirmed'), 0),2) as confirmation_rate
+FROM Signups a
+LEFT JOIN Confirmations b
+ON a.user_id = b.user_id
+GROUP BY a.user_id
+
+
 /* Basic Aggregate Functions */
 /* Q1: Not Boring Movies*/
 SELECT * 
