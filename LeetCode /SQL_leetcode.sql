@@ -100,10 +100,11 @@ GROUP BY m.managerId
 HAVING COUNT(m.managerId) >= 5
 
 /* Q14: 1934. Confirmation Rate */
-SELECT s.user_id, ifnull(AVG(action = 'confirmed'),0) as confirmation_rate
+SELECT s.user_id, round(ifnull(AVG(action = 'confirmed'),0),2) as confirmation_rate
 FROM Signups s
 LEFT JOIN Confirmations c ON s.user_id = c.user_id
 GROUP BY s.user_id
+ORDER BY confirmation_rate
 
 
 SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
@@ -161,7 +162,6 @@ GROUP by query_name
 SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, SUM(IF(state='approved',1,0)) as approved_count, SUM(amount) as trans_total_amount, SUM(IF(state='approved',amount,0)) as approved_total_amount
 FROM Transactions 
 GROUP BY month, country
-
 /* 1174. Immediate Food Delivery II */
 SELECT ROUND(SUM(IF(order_date = customer_pref_delivery_date, 1, 0))*100 / COUNT(DISTINCT customer_id), 2) AS immediate_percentage
 -- SELECT AVG(SUM(IF(order_date = customer_pref_delivery_date, 1, 0))*100 / COUNT(DISTINCT customer_id), 2) AS immediate_percentage
@@ -171,6 +171,8 @@ WHERE (customer_id, order_date) IN (
     FROM Delivery
     GROUP BY customer_id
 )
+
+/* 550. Game Play Analysis IV */
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
