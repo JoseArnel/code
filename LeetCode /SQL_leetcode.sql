@@ -173,6 +173,13 @@ WHERE (customer_id, order_date) IN (
 )
 
 /* 550. Game Play Analysis IV */
+SELECT (SUM(IF(DATEDIFF(day, event_date, event_date))/SUM(login)))
+FROM activity
+WHERE (play_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN  
+(SELECT player_id, MIN(event_date) AS first_login 
+FROM Activity 
+GROUP BY player_id
+) 
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
