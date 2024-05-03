@@ -173,13 +173,11 @@ WHERE (customer_id, order_date) IN (
 )
 
 /* 550. Game Play Analysis IV */
-SELECT (SUM(IF(DATEDIFF(day, event_date, event_date))/SUM(login)))
-FROM activity
-WHERE (play_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN  
-(SELECT player_id, MIN(event_date) AS first_login 
-FROM Activity 
-GROUP BY player_id
-) 
+SELECT ROUND(COUNT(DISTINCT player_id) / (SELECT COUNT(DISTINCT player_id) FROM Activity), 2) AS fraction
+FROM Activity
+WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
+    SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id
+  )
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
@@ -256,6 +254,9 @@ SELECT employee_id, department_id
 FROM Employee
 WHERE primary_flag = 'Y'
 
+/* 610. Triangle Judgement */
+SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
+FROM Triangle
 
 
 
