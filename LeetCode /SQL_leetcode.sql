@@ -179,6 +179,17 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
     SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id
   )
 
+SELECT COUNT(player_id)/(COUNT(player_id) SELECT(player_id) FROM Activity) AS fraction
+FROM Activity 
+WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
+    SELECT player_id, MIN(event_date) AS frist_login
+    FROM Activity 
+    GROUP BY player_id
+)
+
+
+
+
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
 FROM Employee
