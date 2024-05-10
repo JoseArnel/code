@@ -188,7 +188,7 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
 )
 
 
-
+/* 1978. Employees Whose Manager Left the Comp */
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
