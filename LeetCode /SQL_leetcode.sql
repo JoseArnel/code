@@ -188,7 +188,16 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
 )
 
 
+/* Subquries */
 /* 1978. Employees Whose Manager Left the Comp */
+SELECT employee_id
+FROM Employees
+WHERE salary < 30000 and manager_id NOT IN (
+    SELECT employee_id
+    FROM Employees
+)
+ORDER BY employee_id
+
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
@@ -270,7 +279,7 @@ SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
 FROM Triangle
 
 
-
+/* 610. Triangle Judgement */
 
 595. Big Countries
 SELECT name, population, area
