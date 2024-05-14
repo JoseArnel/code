@@ -198,6 +198,14 @@ WHERE salary < 30000 and manager_id NOT IN (
 )
 ORDER BY employee_id
 
+/* 626. Exchange Seats */
+# swap id for every 2 students 
+# if number of students odd, ID of last student not swapped
+
+SELECT id, student 
+CASE 
+    WHEN MOD(id/2) == 1 THEN LAG (student) OVER (order by id)
+FROM Seat
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
