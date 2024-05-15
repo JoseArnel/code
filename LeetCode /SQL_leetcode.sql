@@ -202,10 +202,17 @@ ORDER BY employee_id
 # swap id for every 2 students 
 # if number of students odd, ID of last student not swapped
 
-SELECT id, student 
-CASE 
-    WHEN MOD(id/2) == 1 THEN LAG (student) OVER (order by id)
+SELECT 
+CASE
+    WHEN id = (SELECT MAX(id) FROM Seat) AND id % 2 = 1
+        THEN id
+    WHEN id % 2 = 1
+        THEN id + 1
+    ELSE id - 1
+END AS id, student
 FROM Seat
+ORDER BY id
+
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
