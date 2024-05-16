@@ -204,8 +204,8 @@ SELECT
 CASE 
     WHEN change_date = '2019-08-16'
         THEN product_id
-    WHEN change_date < '2019-08-16'
-        THEN product_id
+    WHEN change_date > '2019-08-16'
+        THEN new_price - 10
 END AS product_id, new_price as price
 FROM Products
 GROUP BY product_id
