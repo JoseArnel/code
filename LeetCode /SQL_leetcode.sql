@@ -187,6 +187,14 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
     GROUP BY player_id
 )
 
+/* 180. Consecutive Numbers */
+# appear 3 times consecutively
+SELECT DISTINCT l1.num as ConsecutiveNums
+FROM Logs l1
+INNER JOIN Logs l2 
+    ON l2.id = l1.id + 1 AND l2.num = l1.num
+INNER JOIN Logs l3
+    ON l3.id = l2.id + 1 AND l3.num = l2.num
 
 /* Subquries */
 /* 1978. Employees Whose Manager Left the Comp */
