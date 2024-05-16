@@ -196,6 +196,20 @@ INNER JOIN Logs l2
 INNER JOIN Logs l3
     ON l3.id = l2.id + 1 AND l3.num = l2.num
 
+/* 1164. Product Price at a Given Date */
+# find all products, 2019-08-16, 
+# and products after ^ - 10 
+# get prices before first / on 
+SELECT
+CASE 
+    WHEN change_date = '2019-08-16'
+        THEN product_id
+    WHEN change_date < '2019-08-16'
+        THEN product_id
+END AS product_id, new_price as price
+FROM Products
+GROUP BY product_id
+
 /* Subquries */
 /* 1978. Employees Whose Manager Left the Comp */
 SELECT employee_id
