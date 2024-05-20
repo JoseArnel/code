@@ -210,6 +210,30 @@ END AS product_id, new_price as price
 FROM Products
 GROUP BY product_id
 
+# find all products, 2019-08-16, 
+# and products after ^ - 10 
+# get prices before first / on 
+# two test cases
+# use of union
+# find products on 2019-08-16
+# anything before is 10
+
+SELECT product_id, new_price as price
+FROM Products
+WHERE (product_id, change_date) NOT IN (SELECT product_id, MAX(change_date) FROM Products WHERE change_date < '2019-08-16')
+GROUP BY product_id
+
+
+SELECT
+CASE 
+    WHEN change_date = '2019-08-16'
+        THEN product_id
+    WHEN change_date > '2019-08-16'
+        THEN new_price - 10
+END AS product_id, new_price as price
+FROM Products
+GROUP BY product_id
+
 /* Subquries */
 /* 1978. Employees Whose Manager Left the Comp */
 SELECT employee_id
