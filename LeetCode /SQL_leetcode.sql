@@ -229,6 +229,11 @@ END AS product_id, new_price as price
 FROM Products
 GROUP BY product_id
 
+/* 1907. Count Salary Categories */
+SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
+FROM Accounts
+
+
 /* Subquries */
 /* 1978. Employees Whose Manager Left the Comp */
 SELECT employee_id
