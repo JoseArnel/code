@@ -270,6 +270,15 @@ END AS id, student
 FROM Seat
 ORDER BY id
 
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+UNION 
+SELECT employee_id, department_id
+FROM Employee 
+WHERE employee_id = department_id
+GROUP BY employee_id
+ORDER BY employee_id
 
 /* 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
