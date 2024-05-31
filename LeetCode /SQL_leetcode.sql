@@ -229,6 +229,17 @@ END AS product_id, new_price as price
 FROM Products
 GROUP BY product_id
 
+# run it back practice
+SELECT product_id, new_price as price
+FROM Products
+WHERE (product_id, change_date) IN (SELECT product_id, MAX(change_date) FROM Products WHERE change_date <= '2019-08-16' GROUP BY product_id)
+UNION 
+SELECT product_id, 10 as price
+FROM Products
+WHERE (product_id) NOT IN (SELECT DISTINCT product_id FROM Products WHERE change_date <= '2019-08-16' GROUP BY product_id)
+GROUP BY product_id
+ORDER BY product_id
+
 /* 1907. Count Salary Categories */
 SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
 FROM Accounts
