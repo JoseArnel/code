@@ -352,6 +352,17 @@ HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
 /* review solutionn */
 
 /* 1789. Primary Department for Each Employee */
+# when employee in 1 department, primary colm  is N
+# Report all employee primary department
+
+# find N first 
+# else if Y then primary is is Y 
+
+SELECT employee_id, department_id
+FROM Employee
+GROUP BY employee_id
+HAVING COUNT(department_id) = 1
+UNION 
 SELECT employee_id, department_id
 FROM Employee
 WHERE primary_flag = 'Y'
