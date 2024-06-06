@@ -705,6 +705,15 @@ FROM weather
 JOIN weather w ON DATEDIFF(weather.recordDate, w.RecordDate) = 1
 WHERE weather.temperature > w.temperature
 
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) as name
+FROM Users
+ORDER BY user_id
+
+1667. Fix Names in a Table
+SELECT user_id, CONCAT(UPPER(SUBSTRING(name,1,1)), LOWER(SUBSTRING(name,2,LENGTH(name)))) as name
+FROM Users
+ORDER BY user_id
+
 
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
