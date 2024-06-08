@@ -715,6 +715,21 @@ FROM Users
 ORDER BY user_id
 
 
+*/
+SELECT patient_id, patient_name, conditions
+FROM patients
+WHERE conditions like 'DIAB10%'
+OR conditions like '% DIAB10%'
+
+
+1527. Patients With a Condition
+SELECT patient_id, patient_name, conditions
+FROM Patients 
+WHERE conditions LIKE '%DIAB1%' 
+
+
+
+
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
         for i in range(1, len(nums)):
