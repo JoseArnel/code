@@ -446,6 +446,16 @@ OR conditions like '% DIAB10%'
 
 SELECT * FROM patients WHERE conditions REGEXP '\\bDIAB1'
 
+196. Delete Duplicate Emails
+# Please write a DELETE statement and DO NOT write a SELECT statement.
+# Write your MySQL query statement below
+
+DELETE p1.email 
+FROM Person p1, Person p2
+WHERE p1.email = p2.email and p1.id != p2.id
+
+
+
 1795. Rearrange Products Table
 SELECT T.employee_id
 FROM (SELECT * FROM employees LEFT JOIN salaries USING(employee_id)
@@ -729,11 +739,18 @@ Interate conditions column and find matching string
 REGEX
 
 */
--- DIAB1
+-- DIAB1c
 1527. Patients With a Condition
 SELECT patient_id, patient_name, conditions
 FROM Patients 
 WHERE conditions LIKE '% DIAB1%' OR conditions LIKE 'DIAB1%'
+
+
+DELETE p1 
+FROM Person p1, Person p2
+WHERE p1.email = p2.email and p1.id > p2.id
+
+
 
 
 
