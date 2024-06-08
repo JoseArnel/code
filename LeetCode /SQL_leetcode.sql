@@ -722,10 +722,18 @@ WHERE conditions like 'DIAB10%'
 OR conditions like '% DIAB10%'
 
 
+/* Algorithm
+Find matching DIAB100, condition
+Output: patient_id, patient_name, conditions
+Interate conditions column and find matching string
+REGEX
+
+*/
+-- DIAB1
 1527. Patients With a Condition
 SELECT patient_id, patient_name, conditions
 FROM Patients 
-WHERE conditions LIKE '%DIAB1%' 
+WHERE conditions LIKE '% DIAB1%' OR conditions LIKE 'DIAB1%'
 
 
 
