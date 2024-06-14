@@ -453,7 +453,19 @@ DELETE p1
 FROM Person p1, Person p2
 WHERE p1.id > p2.id AND p1.email = p2.email 
 
+/* Algorithm
+Output: Second Highest Salary
+Return Id 2?
+*/
 
+SELECT (MAX(salary)) as SecondHighestSalary
+FROM Employee
+WHERE salary NOT IN(SELECT MAX(salary) FROM Employee)
+
+SELECT MAX(salary) as SecondHighestSalary
+FROM employee
+WHERE salary NOT IN(SELECT MAX(salary) FROM employee)
+AND (SELECT COUNT(id) FROM employee) >= 1
 
 1795. Rearrange Products Table
 SELECT T.employee_id
