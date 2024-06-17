@@ -467,6 +467,20 @@ FROM employee
 WHERE salary NOT IN(SELECT MAX(salary) FROM employee)
 AND (SELECT COUNT(id) FROM employee) >= 1
 
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, Group_Concat(DISTINCT product) as products
+FROM Activities
+GROUP BY sell_date
+
+
+SELECT sell_date, COUNT(Distinct product) as num_sold,
+    Group_Concat( Distinct product) as products
+FROM activities
+GROUP BY sell_date
+/* Algorithm: 
+Output: Distnct sell_date, num_sold, products
+Interate thought table, find dates that match, count/increment
+make a list of products, concat product names from activities list */
+
 1795. Rearrange Products Table
 SELECT T.employee_id
 FROM (SELECT * FROM employees LEFT JOIN salaries USING(employee_id)
