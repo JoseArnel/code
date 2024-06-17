@@ -467,6 +467,7 @@ FROM employee
 WHERE salary NOT IN(SELECT MAX(salary) FROM employee)
 AND (SELECT COUNT(id) FROM employee) >= 1
 
+1484. Group Sold Products By The Date
 SELECT sell_date, COUNT(DISTINCT product) as num_sold, Group_Concat(DISTINCT product) as products
 FROM Activities
 GROUP BY sell_date
@@ -668,6 +669,14 @@ GROUP BY user_id
 Output: Customer_number, 
 Return Count of order(nums)
 */
+
+1327. List the Products Ordered in a Period
+SELECT product_name, sum(unit) as unit
+FROM Products p
+Left JOIN Orders o on o.product_id = p.product_id
+GROUP BY product_name
+HAVING SUM(o.unit) > 100
+
 
 SELECT customer_number
 FROM orders
