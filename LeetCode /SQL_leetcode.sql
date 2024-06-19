@@ -648,6 +648,14 @@ FROM activity
 WHERE activity_date > '2019-06-27' and activity_date < '2019-07-27'
 GROUP BY activity_date
 
+1327. List the Products Ordered in a Period
+SELECT product_name, sum(unit) as unit
+FROM Products p
+Left JOIN Orders o on o.product_id = p.product_id
+WHERE o.order_date >= '2020-02-01' and o.order_date <= '2020-02-28'
+GROUP BY product_name
+HAVING SUM(o.unit) > 100
+
 1693. Daily Leads and Partners
 /*
  as unique_leads, distinct partner_id as unique_partners
