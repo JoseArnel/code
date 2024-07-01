@@ -1,6 +1,7 @@
 
 /* SQL 50  
 Select */
+
 /* Q1: 1757. Recyclable and Low Fat Products */
 SELECT product_id
 FROM Products
@@ -28,6 +29,7 @@ FROM Tweets
 WHERE LENGTH(content) > 15
 
 /* Basic Joins */
+
 /* Q6: 1378. Replace Employee ID With The Unique Identifier */
 SELECT EmployeeUNI.unique_id as unique_id, Employees.name as name
 FROM Employees
@@ -38,6 +40,11 @@ SELECT product_name, year, price
 FROM Sales
 LEFT JOIN Product ON Sales.product_id = Product.product_id
 
+/* PSUEDO
+Counting How many Transactions We're not made / Visits where no transactions were made
+Output: customer_id, count_no_trans
+Join Where Visit id equals
+Count, Where */
 /* Q8: 1581. Customer Who Visited but Did Not Make Any Transactions */
 SELECT customer_id, count(visit_id) as count_no_trans
 FROM visits
@@ -47,12 +54,6 @@ WHERE visit_id not in(
     INNER JOIN transactions on transactions.visit_id = visits.visit_id
 )
 GROUP BY customer_id
-
-/* PSUEDO
-Counting How many Transactions We're not made / Visits where no transactions were made
-Output: customer_id, count_no_trans
-Join Where Visit id equals
-Count, Where */
 
 /* Q9: 197. Rising Temperature */
 SELECT w1.id 
@@ -65,17 +66,6 @@ FROM Activity a1
 JOIN Activity a2 ON a1.machine_id = a2.machine_id and a1.process_id = a2.process_id 
 and a2.activity_type = 'start' and a1.activity_type = 'end'
 GROUP BY a1.machine_id
-
--- SELECT sum(DATADIFF(second, a1.timestamp, a2.timestamp))/count(# processes)
--- coun
--- SELECT customer_id, count(visit_id) as count_no_trans
--- FROM visits
--- WHERE visit_id not in(
---     SELECT transactions.visit_id 
---     FROM visits 
---     INNER JOIN transactions on transactions.visit_id = visits.visit_id
--- )
--- GROUP BY customer_id
 
 /* Q11: 577. Employee Bonus */
 SELECT name, bonus
@@ -105,6 +95,10 @@ FROM Signups s
 LEFT JOIN Confirmations c ON s.user_id = c.user_id
 GROUP BY s.user_id
 ORDER BY confirmation_rate
+
+/* Basic Aggregate Functions */
+
+
 
 
 SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
