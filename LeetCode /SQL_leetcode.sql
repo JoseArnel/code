@@ -1,7 +1,24 @@
 
+SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
+FROM Students
+CROSS JOIN Subjects
+-- CROSS JOIN
+LEFT JOIN Examinations ON Students.student_id = Examinations.student_id and Subjects.subject_name = Examinations.subject_name
+GROUP BY student_id, subject_name
+ORDER BY student_id
+
+select s.user_id, round(avg(if(c.action="confirmed",1,0)),2) as confirmation_rate
+from Signups as s left join Confirmations as c on s.user_id= c.user_id group by user_id;
+
+SELECT a.user_id, round(ifnull(avg(action = 'confirmed'), 0),2) as confirmation_rate
+FROM Signups a
+LEFT JOIN Confirmations b
+ON a.user_id = b.user_id
+GROUP BY a.user_id
+
+
 /* SQL 50  
 Select */
-
 /* Q1: 1757. Recyclable and Low Fat Products */
 SELECT product_id
 FROM Products
@@ -28,14 +45,14 @@ SELECT tweet_id
 FROM Tweets
 WHERE LENGTH(content) > 15
 
-/* Basic Joins */
 
-/* Q6: 1378. Replace Employee ID With The Unique Identifier */
+/* Basic Joins */
+/* Q1: 1378. Replace Employee ID With The Unique Identifier */
 SELECT EmployeeUNI.unique_id as unique_id, Employees.name as name
 FROM Employees
 LEFT JOIN EmployeeUNI ON Employees.id = EmployeeUNI.id
 
-/* Q7: 1068. Product Sales Analysis I */
+/* Q2: 1068. Product Sales Analysis I */
 SELECT product_name, year, price
 FROM Sales
 LEFT JOIN Product ON Sales.product_id = Product.product_id
@@ -45,7 +62,7 @@ Counting How many Transactions We're not made / Visits where no transactions wer
 Output: customer_id, count_no_trans
 Join Where Visit id equals
 Count, Where */
-/* Q8: 1581. Customer Who Visited but Did Not Make Any Transactions */
+/* Q3: 1581. Customer Who Visited but Did Not Make Any Transactions */
 SELECT customer_id, count(visit_id) as count_no_trans
 FROM visits
 WHERE visit_id not in(
@@ -55,25 +72,25 @@ WHERE visit_id not in(
 )
 GROUP BY customer_id
 
-/* Q9: 197. Rising Temperature */
+/* Q4: 197. Rising Temperature */
 SELECT w1.id 
 FROM Weather w1, Weather w2 
 WHERE DATEDIFF(w1.recordDate, w2.recordDate) = 1 and w1.temperature > w2.temperature
 
-/* Q10: 1661. Average Time of Process per Machine */
+/* Q5: 1661. Average Time of Process per Machine */
 SELECT a1.machine_id, round((avg(a1.timestamp - a2.timestamp)),3) as processing_time
 FROM Activity a1
 JOIN Activity a2 ON a1.machine_id = a2.machine_id and a1.process_id = a2.process_id 
 and a2.activity_type = 'start' and a1.activity_type = 'end'
 GROUP BY a1.machine_id
 
-/* Q11: 577. Employee Bonus */
+/* Q6: 577. Employee Bonus */
 SELECT name, bonus
 FROM Employee
 LEFT JOIN Bonus on Employee.empId = Bonus.empId
 WHERE Bonus.bonus < 1000 or Bonus.bonus IS NULL
 
-/* Q12: 1280. Students and Examinations */
+/* Q7: 1280. Students and Examinations */
 SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
 FROM Students
 CROSS JOIN Subjects
@@ -82,80 +99,57 @@ LEFT JOIN Examinations ON Students.student_id = Examinations.student_id and Subj
 GROUP BY student_id, subject_name
 ORDER BY student_id
 
-/* Q13: 570. Managers with at Least 5 Direct Reports */
+/* Q8: 570. Managers with at Least 5 Direct Reports */
 SELECT e.name
 FROM Employee as e
 INNER JOIN Employee AS m ON m.managerId = e.id
 GROUP BY m.managerId
 HAVING COUNT(m.managerId) >= 5
 
-/* Q14: 1934. Confirmation Rate */
+/* Q9: 1934. Confirmation Rate */
 SELECT s.user_id, round(ifnull(AVG(action = 'confirmed'),0),2) as confirmation_rate
 FROM Signups s
 LEFT JOIN Confirmations c ON s.user_id = c.user_id
 GROUP BY s.user_id
 ORDER BY confirmation_rate
 
-/* Basic Aggregate Functions */
-
-
-
-
-SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
-FROM Students
-CROSS JOIN Subjects
--- CROSS JOIN
-LEFT JOIN Examinations ON Students.student_id = Examinations.student_id and Subjects.subject_name = Examinations.subject_name
-GROUP BY student_id, subject_name
-ORDER BY student_id
-
-select s.user_id, round(avg(if(c.action="confirmed",1,0)),2) as confirmation_rate
-from Signups as s left join Confirmations as c on s.user_id= c.user_id group by user_id;
-
-SELECT a.user_id, round(ifnull(avg(action = 'confirmed'), 0),2) as confirmation_rate
-FROM Signups a
-LEFT JOIN Confirmations b
-ON a.user_id = b.user_id
-GROUP BY a.user_id
-
 
 /* Basic Aggregate Functions */
-/* Q1: Not Boring Movies*/
+/* Q1: 620. Not Boring Movies*/
 SELECT * 
 FROM Cinema 
 Where description != 'boring' AND id%2 
 ORDER BY rating DESC
-
-
-/* 1251. Average Selling Price */
+/* Q2: 1251. Average Selling Price */
 SELECT p.product_id, IFNULL(ROUND(SUM(units * price)/SUM(units), 2), 0) as average_price
 FROM Prices p 
 LEFT JOIN UnitsSold u ON p.product_id = u.product_id AND purchase_date BETWEEN start_date AND end_date
 GROUP BY product_id
 
-
-/* 1075. Project Employees I */
+/* Q3: 1075. Project Employees I */
 SELECT project_id, ROUND(AVG(experience_years),2) as average_years
 FROM Project as P
 INNER JOIN Employee as e ON e.employee_id = p.employee_id
 GROUP BY project_id
 
-/* 1633. Percentage of Users Attended a Contest */
+/* Q4: 1633. Percentage of Users Attended a Contest */
 SELECT contest_id, ROUND(COUNT(r.user_id) * 100/ (SELECT count(user_id) FROM Users), 2) as percentage 
 FROM Register as r
 LEFT JOIN Users as u on u.user_id = r.user_id
 GROUP BY r.contest_id
 ORDER BY percentage DESC, contest_id
-1211. Queries Quality and Percentage
-/* 1211. Queries Quality and Percentage */
+
+/* Q5: 1211. Queries Quality and Percentage */
 SELECT query_name, ROUND(AVG(rating/position),2) as quality, ROUND((AVG(IF(rating<3,1,0)*100)),2) as poor_query_percentage 
 FROM Queries
 WHERE query_name is NOT NULL
 GROUP by query_name
-/* 1193. Monthly Transactions I */
+
+/* Q6 1193. Monthly Transactions I */
 SELECT SUBSTRING(trans_date, 1, 7) as month, country, COUNT(id) as trans_count, SUM(IF(state='approved',1,0)) as approved_count, SUM(amount) as trans_total_amount, SUM(IF(state='approved',amount,0)) as approved_total_amount
 FROM Transactions 
 GROUP BY month, country
+
 /* 1174. Immediate Food Delivery II */
 SELECT ROUND(SUM(IF(order_date = customer_pref_delivery_date, 1, 0))*100 / COUNT(DISTINCT customer_id), 2) AS immediate_percentage
 -- SELECT AVG(SUM(IF(order_date = customer_pref_delivery_date, 1, 0))*100 / COUNT(DISTINCT customer_id), 2) AS immediate_percentage
@@ -173,15 +167,77 @@ WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
     SELECT player_id, MIN(event_date) AS first_login FROM Activity GROUP BY player_id
   )
 
-SELECT COUNT(player_id)/(COUNT(player_id) SELECT(player_id) FROM Activity) AS fraction
+
+/* Sorting and Grouping */
+/* Q1: 2356. Number of Unique Subjects Taught by Each Teacher */
+SELECT teacher_id, COUNT(DISTINCT subject_id) as cnt
+FROM Teacher
+GROUP BY teacher_id
+
+/* Q2: 1141. User Activity for the Past 30 Days I  */
+SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users
 FROM Activity 
-WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
-    SELECT player_id, MIN(event_date) AS frist_login
-    FROM Activity 
-    GROUP BY player_id
+WHERE activity_date > '2019-06-27' and activity_date <= '2019-07-27'
+GROUP BY activity_date
+
+/* Q3: 1070. Product Sales Analysis III */
+SELECT product_id, year as first_year, quantity, price
+FROM Sales
+WHERE (product_id, year) IN (
+    SELECT product_id, MIN(year)
+    FROM Sales
+    GROUP BY product_id
 )
 
-/* 180. Consecutive Numbers */
+/* Q4: 596. Classes More Than 5 Students */
+SELECT class
+FROM Courses 
+GROUP BY class
+HAVING COUNT(student) >= 5
+
+/* Q5: 1729. Find Followers Count */
+SELECT user_id, COUNT(follower_id) as followers_count
+FROM Followers
+GROUP BY user_id
+ORDER BY user_id ASC
+
+/* Q6: 619. Biggest Single Number */
+SELECT MAX(num) as num
+FROM (
+    SELECT num
+    FROM MyNumbers
+    GROUP BY num
+    HAVING count(num) = 1
+)
+as unique_max
+
+/* Q7: 1045. Customers Who Bought All Products */
+SELECT customer_id
+FROM Customer 
+GROUP BY customer_id
+HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
+/* review solutionn */
+
+
+/* Advanced Select and Joins */
+
+/* Q1: */
+
+/* Q2: 1789. Primary Department for Each Employee */
+SELECT employee_id, department_id
+FROM Employee
+GROUP BY employee_id
+UNION 
+SELECT employee_id, department_id
+FROM Employee
+WHERE primary_flag = 'Y'
+
+/* Q3: 610. Triangle Judgement */
+SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
+FROM Triangle
+
+
+/* Q4: 180. Consecutive Numbers */
 # appear 3 times consecutively
 SELECT DISTINCT l1.num as ConsecutiveNums
 FROM Logs l1
@@ -190,7 +246,7 @@ INNER JOIN Logs l2
 INNER JOIN Logs l3
     ON l3.id = l2.id + 1 AND l3.num = l2.num
 
-/* 1164. Product Price at a Given Date */
+/* Q5: 1164. Product Price at a Given Date */
 # find all products, 2019-08-16, 
 # and products after ^ - 10 
 # get prices before first / on 
@@ -234,13 +290,24 @@ WHERE (product_id) NOT IN (SELECT DISTINCT product_id FROM Products WHERE change
 GROUP BY product_id
 ORDER BY product_id
 
+
 /* 1907. Count Salary Categories */
 SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
 FROM Accounts
 
+SELECT COUNT(player_id)/(COUNT(player_id) SELECT(player_id) FROM Activity) AS fraction
+FROM Activity 
+WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
+    SELECT player_id, MIN(event_date) AS frist_login
+    FROM Activity 
+    GROUP BY player_id
+)
+
+/* ....  */
+
 
 /* Subquries */
-/* 1978. Employees Whose Manager Left the Comp */
+/* Q1: 1978. Employees Whose Manager Left the Comp */
 SELECT employee_id
 FROM Employees
 WHERE salary < 30000 and manager_id NOT IN (
@@ -249,7 +316,7 @@ WHERE salary < 30000 and manager_id NOT IN (
 )
 ORDER BY employee_id
 
-/* 626. Exchange Seats review */
+/* Q2: 626. Exchange Seats review */
 # swap id for every 2 students 
 # if number of students odd, ID of last student not swapped
 
@@ -264,6 +331,65 @@ END AS id, student
 FROM Seat
 ORDER BY id
 
+
+/* Advanced String Functions / Regex / Clause */
+/* Q1: 1667. Fix Names in a Table */
+SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) as name
+FROM Users
+ORDER BY user_id
+
+/* Algorithm
+Find matching DIAB100, condition
+Output: patient_id, patient_name, conditions
+Interate conditions column and find matching string
+REGEX
+*/
+/* Q2: 1527. Patients With a Condition */
+SELECT patient_id, patient_name, conditions
+FROM patients
+WHERE conditions like 'DIAB10%'
+OR conditions like '% DIAB10%'
+
+SELECT * FROM patients WHERE conditions REGEXP '\\bDIAB1'
+
+/* Q3: 196. Delete Duplicate Emails */
+DELETE p1 
+FROM Person p1, Person p2
+WHERE p1.email = p2.email and p1.id > p2.id
+
+/* Algorithm
+Output: Second Highest Salary
+Return Id 2?
+*/
+/* Q4: 176. Second Highest Salary */
+SELECT MAX(salary) as SecondHighestSalary
+FROM employee
+WHERE salary NOT IN(SELECT MAX(salary) FROM employee)
+AND (SELECT COUNT(id) FROM employee) >= 1
+
+/* Algorithm: 
+Output: Distnct sell_date, num_sold, products
+Interate thought table, find dates that match, count/increment!
+make a list of products, concat product names from activities list */
+/* Q5: 1484. Group Sold Products By The Date */
+SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product) as products
+FROM activities
+GROUP BY sell_date
+
+/* 1327. List the Products Ordered in a Period */
+SELECT product_name, sum(unit) as unit
+FROM Products p
+Left JOIN Orders o on o.product_id = p.product_id
+WHERE o.order_date >= '2020-02-01' and o.order_date <= '2020-02-29'
+GROUP BY product_name
+HAVING SUM(o.unit) >= 100
+
+
+
+
+
+
+
 SELECT employee_id, department_id
 FROM Employee
 WHERE primary_flag = 'Y'
@@ -274,26 +400,6 @@ WHERE employee_id = department_id
 GROUP BY employee_id
 ORDER BY employee_id
 
-
-/* 1789. Primary Department for Each Employee */
-SELECT employee_id, department_id
-FROM Employee
-GROUP BY employee_id
-UNION 
-SELECT employee_id, department_id
-FROM Employee
-WHERE primary_flag = 'Y'
-
-
-/* 1070. Product Sales Analysis III */
-SELECT product_id, year as first_year, quantity, price
-FROM Sales
-WHERE (product_id, year) IN (
-    SELECT product_id, MIN(year)
-    FROM Sales
-    GROUP BY product_id
-)
-
 #Approach 2;  Using IN
 SELECT product_id, year AS first_year, quantity, price
 FROM Sales
@@ -303,47 +409,10 @@ WHERE (product_id, year) in (
     GROUP BY product_id
 )
 
-/* 1141. User Activity for the Past 30 Days I  */
-SELECT activity_date as day, COUNT(DISTINCT user_id) as active_users
-FROM Activity 
-WHERE activity_date > '2019-06-27' and activity_date <= '2019-07-27'
-GROUP BY activity_date
-
-
-
 /* 2356. Number of Unique Subjects Taught by Each  */
 SELECT teacher_id, COUNT(DISTINCT subject_id) as cnt
 FROM Teacher
 GROUP BY teacher_id
-
-/* 596. Classes More Than 5 Students  */
-SELECT class
-FROM Courses 
-GROUP BY class
-HAVING COUNT(student) >= 5
-
-/* 1729. Find Followers Count  */
-SELECT user_id, COUNT(follower_id) as followers_count
-FROM Followers
-GROUP BY user_id
-ORDER BY user_id ASC
-
-/* 619. Biggest Single Number  */
-SELECT MAX(num) as num
-FROM (
-    SELECT num
-    FROM MyNumbers
-    GROUP BY num
-    HAVING count(num) = 1
-)
-as unique_max
-
-/* 1045. Customers Who Bought All Products */
-SELECT customer_id
-FROM Customer 
-GROUP BY customer_id
-HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
-/* review solutionn */
 
 /* 1789. Primary Department for Each Employee */
 # when employee in 1 department, primary colm  is N
@@ -361,12 +430,12 @@ SELECT employee_id, department_id
 FROM Employee
 WHERE primary_flag = 'Y'
 
-/* 610. Triangle Judgement */
-SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
-FROM Triangle
 
 
-/* 610. Triangle Judgement */
+
+
+
+
 
 595. Big Countries
 SELECT name, population, area
@@ -406,39 +475,6 @@ SET sex = CASE sex
     ELSE 'f'
 END
 
-196. Delete Duplicate Emails
-DELETE p1 
-FROM Person p1, Person p2
-WHERE p1.email = p2.email and p1.id > p2.id
-
-
-1667. Fix Names in a Table
-SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) as name
-FROM Users
-ORDER BY user_id
-
-1484. Group Sold Products By The Date
-/* Algorithm: 
-Output: Distnct sell_date, num_sold, products
-Interate thought table, find dates that match, count/increment!
-make a list of products, concat product names from activities list */
-SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT product) as products
-FROM activities
-GROUP BY sell_date
-
-1527. Patients With a Condition
-/* Algorithm
-Find matching DIAB100, condition
-Output: patient_id, patient_name, conditions
-Interate conditions column and find matching string
-REGEX
-*/
-SELECT patient_id, patient_name, conditions
-FROM patients
-WHERE conditions like 'DIAB10%'
-OR conditions like '% DIAB10%'
-
-SELECT * FROM patients WHERE conditions REGEXP '\\bDIAB1'
 
 196. Delete Duplicate Emails
 # Please write a DELETE statement and DO NOT write a SELECT statement.
@@ -579,16 +615,6 @@ FROM tree
 WHERE p_id is not NULL
 and id IN (SELECT p_id from tree WHERE p_id is not null) 
 
-176. Second Highest Salary
-/* Algorithm
-Output: Second Highest Salary
-Return Id 2?
-*/
-SELECT MAX(salary) as SecondHighestSalary
-FROM employee
-WHERE salary NOT IN(SELECT MAX(salary) FROM employee)
-AND (SELECT COUNT(id) FROM employee) >= 1
-
 175. Combine Two Tables
 SELECT person.firstName, person.lastName, address.city, address.state
 FROM person 
@@ -642,13 +668,6 @@ FROM activity
 WHERE activity_date > '2019-06-27' and activity_date < '2019-07-27'
 GROUP BY activity_date
 
-1327. List the Products Ordered in a Period
-SELECT product_name, sum(unit) as unit
-FROM Products p
-Left JOIN Orders o on o.product_id = p.product_id
-WHERE o.order_date >= '2020-02-01' and o.order_date <= '2020-02-29'
-GROUP BY product_name
-HAVING SUM(o.unit) >= 100
 
 1693. Daily Leads and Partners
 /*
