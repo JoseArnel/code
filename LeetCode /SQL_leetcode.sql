@@ -376,7 +376,7 @@ SELECT sell_date, COUNT(DISTINCT product) as num_sold, GROUP_CONCAT(DISTINCT pro
 FROM activities
 GROUP BY sell_date
 
-/* 1327. List the Products Ordered in a Period */
+/* Q6: 1327. List the Products Ordered in a Period */
 SELECT product_name, sum(unit) as unit
 FROM Products p
 Left JOIN Orders o on o.product_id = p.product_id
@@ -384,6 +384,10 @@ WHERE o.order_date >= '2020-02-01' and o.order_date <= '2020-02-29'
 GROUP BY product_name
 HAVING SUM(o.unit) >= 100
 
+/* Q7: 1327. List the Products Ordered in a Period */
+SELECT user_id, name, mail
+FROM Users
+WHERE mail REGEXP '^[a-zA-Z][a-zA-Z-._0-9]*@leetcode[.]com$'
 
 
 
