@@ -221,7 +221,7 @@ HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
 
 /* Advanced Select and Joins */
 
-/* Q1: */
+/* Q1: 1731. The Number of Employees Which Report to Each Employee */
 
 /* Q2: 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
