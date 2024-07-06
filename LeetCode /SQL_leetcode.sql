@@ -222,6 +222,11 @@ HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
 /* Advanced Select and Joins */
 
 /* Q1: 1731. The Number of Employees Which Report to Each Employee */
+SELECT e1.employee_id, e1.name, COUNT(e2.reports_to) as reports_count, ROUND(AVG(e2.age)) as average_age
+FROM Employees e1
+INNER JOIN Employees e2 ON e1.employee_id = e2.reports_to
+GROUP BY employee_id
+ORDER BY employee_id
 
 /* Q2: 1789. Primary Department for Each Employee */
 SELECT employee_id, department_id
@@ -235,7 +240,6 @@ WHERE primary_flag = 'Y'
 /* Q3: 610. Triangle Judgement */
 SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
 FROM Triangle
-
 
 /* Q4: 180. Consecutive Numbers */
 # appear 3 times consecutively
