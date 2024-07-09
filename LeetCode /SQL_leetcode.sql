@@ -335,6 +335,14 @@ END AS id, student
 FROM Seat
 ORDER BY id
 
+/* Q3: 1341. Movie Rating */
+# Write your MySQL query statement below
+# 3 tables, User with greatest number of movies, in Tie return smallest name
+#find highest average rating in Feb 2020, in tie lexicographcailly
+# Joins and Order bys, Somehow get Danials name andthe movie
+
+SELECT
+
 
 /* Advanced String Functions / Regex / Clause */
 /* Q1: 1667. Fix Names in a Table */
