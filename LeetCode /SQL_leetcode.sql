@@ -335,13 +335,26 @@ END AS id, student
 FROM Seat
 ORDER BY id
 
+# Investment Project, Directions. being able to show for
+
 /* Q3: 1341. Movie Rating */
 # Write your MySQL query statement below
 # 3 tables, User with greatest number of movies, in Tie return smallest name
 #find highest average rating in Feb 2020, in tie lexicographcailly
 # Joins and Order bys, Somehow get Danials name andthe movie
+# Find name
 
-SELECT
+SELECT name
+FROM Users u
+INNER JOIN MovieRating m on m.user_id = u.user_id
+GROUP BY m.user_id
+HAVING COUNT(name) = (SELECT COUNT(name) as NUM_FREQUENCY
+                        FROM MovieRating
+                        GROUP BY user_id
+                        ORDER BY user_id
+                        LIMIT 1
+)
+GROUP BY user_id
 
 
 /* Advanced String Functions / Regex / Clause */
