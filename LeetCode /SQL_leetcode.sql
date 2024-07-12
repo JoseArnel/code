@@ -351,13 +351,19 @@ ORDER BY id
 # Solve seperately use UNION
 # Find name
 
-SELECT name
+# Write your MySQL query statement below
+# 3 tables, User with greatest number of movies, in Tie return smallest name
+#find highest average rating in Feb 2020, in tie lexicographcailly
+# Joins and Order bys, Somehow get Danials name andthe movie
+# Solve seperately use UNION
+# Find name
+
+SELECT name as results
 FROM Users u 
 INNER JOIN MovieRating r ON u.user_id = r.user_id 
-WHERE name (SELECT name
-            FROM )
 GROUP BY name
-ORDER BY name
+ORDER BY COUNT(*) desc
+LIMIT 1
 
 # order by count(*) desc
 
