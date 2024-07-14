@@ -342,25 +342,6 @@ ORDER BY id
 # 3 tables, User with greatest number of movies, in Tie return smallest name
 #find highest average rating in Feb 2020, in tie lexicographcailly
 # Joins and Order bys, Somehow get Danials name andthe movie
-# Find name
-
-# Write your MySQL query statement below
-# 3 tables, User with greatest number of movies, in Tie return smallest name
-#find highest average rating in Feb 2020, in tie lexicographcailly
-# Joins and Order bys, Somehow get Danials name andthe movie
-# Solve seperately use UNION
-# Find name
-
-# Write your MySQL query statement below
-# 3 tables, User with greatest number of movies, in Tie return smallest name
-#find highest average rating in Feb 2020, in tie lexicographcailly
-# Joins and Order bys, Somehow get Danials name andthe movie
-# Solve seperately use UNION
-# Find name
-# Write your MySQL query statement below
-# 3 tables, User with greatest number of movies, in Tie return smallest name
-#find highest average rating in Feb 2020, in tie lexicographcailly
-# Joins and Order bys, Somehow get Danials name andthe movie
 # Solve seperately use UNION
 # Find name
 
@@ -371,6 +352,7 @@ GROUP BY name
 ORDER BY COUNT(*) desc
 LIMIT 1)
 
+# LEXOGRAPHY??
 #  find movie for highest average, in Feb 2020
 UNION
 (SELECT title results
@@ -378,12 +360,12 @@ FROM Movies m
 Inner Join MovieRating r on m.movie_id = r.movie_id
 WHERE month(created_at) = 2
 GROUP BY title
-ORDER BY AVG(rating) DESC, 1 ASC
+ORDER BY AVG(rating) DESC, r.movie_id ASC
 LIMIT 1
 )
 
 # order by count(*) desc
-
+#  order by average_rating desc, results asc limit 1
 
 /* Advanced String Functions / Regex / Clause */
 /* Q1: 1667. Fix Names in a Table */
