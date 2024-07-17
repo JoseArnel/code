@@ -367,6 +367,36 @@ LIMIT 1
 # order by count(*) desc
 #  order by average_rating desc, results asc limit 1
 
+# Write your MySQL query statement below
+# 3 tables, User with greatest number of movies, in Tie return smallest name
+#find highest average rating in Feb 2020, in tie lexicographcailly
+# Joins and Order bys, Somehow get Danials name andthe movie
+# Solve seperately use UNION
+# Find name
+
+(SELECT name results
+FROM Users u 
+INNER JOIN MovieRating r ON u.user_id = r.user_id 
+GROUP BY name
+ORDER BY COUNT(*) desc, name
+LIMIT 1)
+
+# LEXOGRAPHY??
+#  find movie for highest average, in Feb 2020
+UNION ALL
+
+(SELECT title results
+FROM Movies m 
+Inner Join MovieRating r on m.movie_id = r.movie_id
+WHERE year(created_at) = 2020 and month(created_at) = 2
+GROUP BY title
+ORDER BY AVG(rating) DESC, title
+LIMIT 1
+)
+
+# order by count(*) desc
+#  order by average_rating desc, results asc limit 1
+
 /* Advanced String Functions / Regex / Clause */
 /* Q1: 1667. Fix Names in a Table */
 SELECT user_id, CONCAT(UPPER(LEFT(name, 1)), LOWER(SUBSTRING(name, 2, LENGTH(name)))) as name
