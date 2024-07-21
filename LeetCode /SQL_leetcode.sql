@@ -394,6 +394,8 @@ ORDER BY AVG(rating) DESC, title
 LIMIT 1
 )
 
+raa
+
 # order by count(*) desc
 #  order by average_rating desc, results asc limit 1
 
