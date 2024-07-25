@@ -298,6 +298,17 @@ ORDER BY product_id
 /* 1907. Count Salary Categories */
 SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
 FROM Accounts
+UNION
+SELECT 'Average Salary' as category, SUM(if(income>=20000 and income <=50000,1,0)) as accounts_count
+FROM Accounts
+UNION 
+SELECT 'High Salary' as category, SUM(if(income>50000,1,0)) as accounts_count
+FROM Accounts
+
+
+
+
+
 
 SELECT COUNT(player_id)/(COUNT(player_id) SELECT(player_id) FROM Activity) AS fraction
 FROM Activity 
