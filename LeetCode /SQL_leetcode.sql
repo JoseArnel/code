@@ -405,6 +405,18 @@ ORDER BY AVG(rating) DESC, title
 LIMIT 1
 )
 
+/* 602. Friend Requests II: Who Has the Most Friends */
+WITH base as (SELECT requester_id as id FROM RequestAccepted
+UNION ALL
+SELECT accepter_id id FROM RequestAccepted)
+
+SELECT id, COUNT(*) num 
+FROM base
+GROUP BY 1 
+ORDER BY 2
+DESC LIMIT 1
+
+
 raa
 
 # order by count(*) desc
