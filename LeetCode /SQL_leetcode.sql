@@ -17,6 +17,23 @@ ON a.user_id = b.user_id
 GROUP BY a.user_id
 
 
+# Write your MySQL query statement below
+SELECT ROUND(SUM(tiv_2016), 2) as tiv_2016
+FROM Insurance
+WHERE tiv_2015 IN (
+    SELECT tiv_2015
+    FROM Insurance 
+    GROUP BY tiv_2015
+    HAVING COUNT(*) > 1
+)
+AND (lat, lon) IN (
+    SELECT lat, lon
+    FROM Insurance 
+    GROUP BY lat, lon
+    HAVING COUNT(*) = 1
+)
+
+
 /* SQL 50  
 Select */
 /* Q1: 1757. Recyclable and Low Fat Products */
@@ -417,17 +434,18 @@ ORDER BY 2
 DESC LIMIT 1
 
 /* 585. Investments in 2016 */
-SELECT ROUND(SUM(tiv_2016), 2) as tiv_2016
+SELECT ROUND(SUM(tiv_2016),2) as tiv_2016
 FROM Insurance
 WHERE tiv_2015 IN (
     SELECT tiv_2015
-    FROM Insurance 
+    FROM Insurance
+    WHERE tiv_2015
     GROUP BY tiv_2015
-    HAVING COUNT(*) > 1
+    HAVING COUNT(tiv_2015) > 1   
 )
 AND (lat, lon) IN (
     SELECT lat, lon
-    FROM Insurance 
+    FROM Insurance
     GROUP BY lat, lon
     HAVING COUNT(*) = 1
 )
