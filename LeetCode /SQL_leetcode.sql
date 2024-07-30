@@ -392,6 +392,16 @@ ORDER BY AVG(rating) DESC, r.movie_id ASC
 LIMIT 1
 )
 
+
+/* Q4: 1321. Restaurant Growth */
+SELECT 
+visited_on,
+(
+    SELECT SUM(amount)
+    FROM Customer 
+    WHERE visited_on, BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY), AND c.visited_on
+) AS amount, 
+
 # order by count(*) desc
 #  order by average_rating desc, results asc limit 1
 
