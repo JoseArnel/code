@@ -394,13 +394,24 @@ LIMIT 1
 
 
 /* Q4: 1321. Restaurant Growth */
+# moving average
+# how mucha. customer is paid in seven days, current day + 6
+
 SELECT 
 visited_on,
-(
-    SELECT SUM(amount)
+(SELECT SUM(amount)
     FROM Customer 
-    WHERE visited_on, BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY), AND c.visited_on
+    WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
 ) AS amount, 
+(
+    SELECT ROUND(AVG(amount), 2)
+    FROM Customer
+    WHERE visited_on BETWEEN DATE_sub(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+                                        # current day + 6  
+) as average_amount
+FROM Customer c
+GROUP BY visited_on
+# 7 days
 
 # order by count(*) desc
 #  order by average_rating desc, results asc limit 1
