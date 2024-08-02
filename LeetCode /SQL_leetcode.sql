@@ -397,6 +397,10 @@ LIMIT 1
 # moving average
 # how mucha. customer is paid in seven days, current day + 6
 
+# Write your MySQL query statement below
+# moving average rara
+# how mucha. customer is paid in seven days, current day + 6
+
 SELECT 
 visited_on,
 (SELECT SUM(amount)
@@ -411,6 +415,7 @@ visited_on,
 ) as average_amount
 FROM Customer c
 GROUP BY visited_on
+LIMIT 4
 # 7 days
 
 # order by count(*) desc
