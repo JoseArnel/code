@@ -394,12 +394,45 @@ LIMIT 1
 
 
 /* Q4: 1321. Restaurant Growth */
-# moving average
-# how mucha. customer is paid in seven days, current day + 6
-
 # Write your MySQL query statement below
 # moving average rara
 # how mucha. customer is paid in seven days, current day + 6
+
+SELECT 
+visited_on,
+(SELECT SUM(amount)
+    FROM Customer 
+    WHERE visited_on BETWEEN DATE_SUB(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+) AS amount, 
+(
+    SELECT ROUND(AVG(amount), 2)
+    FROM Customer
+    WHERE visited_on BETWEEN DATE_sub(c.visited_on, INTERVAL 6 DAY) AND c.visited_on
+                                        # current day + 6  
+) as average_amount
+FROM Customer c
+WHERE visited_on >= (
+    SELECT DATE_ADD(MIN(visited_on), INTERVAL 6 DAY)
+    FROM Customer
+    # range
+)
+GROUP BY visited_on
+# 7 days
+
+
+WITH TotalAmount AS (SELECT visited_on,
+sum(amount) as total
+FROM Customer
+GROUP BY visited_on)
+
+SELECT visited_on, amount, average_amount
+FROM (SELECT visited_on,
+  sum(total) over(order by visited_on ASC rows between 6 preceding and current row) AS 'amount',
+  round(avg(total) over(order by visited_on ASC rows between 6 preceding and current row), 2) AS 'average_amount'
+FROM TotalAmount) AS Temp
+WHERE DATE_SUB(visited_on, INTERVAL 6 DAY) IN (SELECT visited_on FROM TotalAmount)
+ORDER BY visited_on ASC
+
 
 SELECT 
 visited_on,
