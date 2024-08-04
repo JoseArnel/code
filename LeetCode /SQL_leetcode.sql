@@ -1,3 +1,25 @@
+-- WITH CLAUSE
+WITH cte_quantity
+AS
+(SELECT
+    SUM(Quantity) as Total
+FROM OrderDetails
+GROUP BY ProductID)
+ 
+SELECT
+    AVG(Total) average_product_quantity
+FROM cte_quantity;
+
+SELECT
+    AVG(Total) average_product_quantity
+FROM
+( SELECT
+  SUM(Quantity) as Total
+  FROM OrderDetails
+  GROUP BY ProductID
+)
+
+
 
 SELECT Students.student_id, Students.student_name, Subjects.subject_name, COUNT(Examinations.student_id) as attended_exams
 FROM Students
@@ -397,6 +419,16 @@ LIMIT 1
 # Write your MySQL query statement below
 # moving average rara
 # how mucha. customer is paid in seven days, current day + 6
+
+WITH TotalAmount AS (SELECT visited_on, sum(amount) AS total FROM Customer GROUP BY visited_on)
+
+SELECT visited_on, amount, average_amount
+FROM (SELECT visited_on, 
+    sum(total) OVER (order by visited_on ASC rows between 6 preceding and current row) AS 'amount',
+    round(avg(total) OVER(order by visited_on ASC rows between 6 preceding and current row), 2) AS 'average_amount'
+    FROM TotalAmount) as Temp
+WHERE DATE_SUB(visited_on, INTERVAL 6 DAY) IN (SELECT visited_on FROM TotalAmount)
+ORDER BY visited_on ASC
 
 SELECT 
 visited_on,
