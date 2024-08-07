@@ -430,6 +430,7 @@ FROM (SELECT visited_on,
 WHERE DATE_SUB(visited_on, INTERVAL 6 DAY) IN (SELECT visited_on FROM TotalAmount)
 ORDER BY visited_on ASC
 
+
 SELECT 
 visited_on,
 (SELECT SUM(amount)
