@@ -333,6 +333,26 @@ WHERE (product_id) NOT IN (SELECT DISTINCT product_id FROM Products WHERE change
 GROUP BY product_id
 ORDER BY product_id
 
+/* 1204. Last Person to Fit in the Bus */
+# 1000kilograms
+# person name of last person who cannot fit
+# recursive, subtract from lightest to heaviest
+
+# pair up queue tables to have equal or higher turn values
+# group turns? and calculate sum of each group
+# filter out groupsn having more than 1000.
+# order weights by sum of descending order,   ensuring the lat person who can fit is at the top
+# Limit result to 1 since we only need the last person
+
+#seperate into two queses, two tables
+SELECt q1.person_name 
+FROM Queue q1 JOIN Queue q2 on q1.turn >= q2.turn
+GROUP BY q1.turn
+HAVING SUM(q2.weight) <= 1000
+ORDER BY SUM(q2.weight) DESC
+LIMIT 1
+# recursive, least weaight..
+
 
 /* 1907. Count Salary Categories */
 SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
@@ -429,6 +449,8 @@ FROM (SELECT visited_on,
     FROM TotalAmount) as Temp
 WHERE DATE_SUB(visited_on, INTERVAL 6 DAY) IN (SELECT visited_on FROM TotalAmount)
 ORDER BY visited_on ASC
+
+
 
 
 SELECT 
