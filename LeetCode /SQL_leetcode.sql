@@ -343,16 +343,19 @@ ORDER BY product_id
 # filter out groupsn having more than 1000.
 # order weights by sum of descending order,   ensuring the lat person who can fit is at the top
 # Limit result to 1 since we only need the last person
+# Turns are given
+# 1. Pair Queue tables to on turn values higher or equal
+# 2. Group Turns to SUM each group
+# 3. Filter OUT sums more than 1000
 
 #seperate into two queses, two tables
-SELECt q1.person_name 
-FROM Queue q1 JOIN Queue q2 on q1.turn >= q2.turn
+SELECT q1.person_name
+FROM Queue q1 INNER JOIN Queue q2 ON q1.turn >= q2.turn
 GROUP BY q1.turn
-HAVING SUM(q2.weight) <= 1000
-ORDER BY SUM(q2.weight) DESC
-LIMIT 1
-# recursive, least weaight..
+HAVING SUM(q2.weight) >= 1000
 
+ # order by turns >=, nested table/ pair tables
+# recursive, least weaight..
 
 /* 1907. Count Salary Categories */
 SELECT 'Low Salary' as category, SUM(if(income<20000, 1,0)) as accounts_count
