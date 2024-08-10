@@ -348,11 +348,13 @@ ORDER BY product_id
 # 2. Group Turns to SUM each group
 # 3. Filter OUT sums more than 1000
 
-#seperate into two queses, two tables
 SELECT q1.person_name
-FROM Queue q1 INNER JOIN Queue q2 ON q1.turn >= q2.turn
-GROUP BY q1.turn
-HAVING SUM(q2.weight) >= 1000
+FROM Queue q1 INNER JOIN Queue q2 ON q2.turn >= q1.turn
+GROUP BY (q1.turn)
+HAVING SUM(q1.weight) >= 1000
+ORDER BY q1.person_name DESC
+LIMIT 1
+
 
  # order by turns >=, nested table/ pair tables
 # recursive, least weaight..
