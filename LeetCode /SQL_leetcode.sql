@@ -349,12 +349,11 @@ ORDER BY product_id
 # 3. Filter OUT sums more than 1000
 
 SELECT q1.person_name
-FROM Queue q1 INNER JOIN Queue q2 ON q2.turn >= q1.turn
+FROM Queue q1 INNER JOIN Queue q2 ON q1.turn >= q2.turn
 GROUP BY (q1.turn)
-HAVING SUM(q1.weight) >= 1000
-ORDER BY q1.person_name DESC
+HAVING SUM(q2.weight) <= 1000
+ORDER BY SUM(q2.weight) DESC
 LIMIT 1
-
 
  # order by turns >=, nested table/ pair tables
 # recursive, least weaight..
@@ -571,6 +570,19 @@ AND (lat, lon) IN (
 
 # order by count(*) desc
 #  order by average_rating desc, results asc limit 1
+
+/* Q7: 185. Department Top Three Salaries */
+# Write your MySQL query statement below
+# WHO EARNS THE MOST 
+# a higher earner is, the top 3 unique salaries of the department
+# Employee table, department table,
+# top 3 unique, limit by 3, nested, group by department, a Join?
+SELECT d.name as Department, e.name as Employee, e.salary as Salary
+FROM Employee e JOIN Department d on e.departmentId = d.id
+ORDER BY e.salary DESC
+
+
+
 
 /* Advanced String Functions / Regex / Clause */
 /* Q1: 1667. Fix Names in a Table */
