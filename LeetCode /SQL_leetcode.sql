@@ -579,13 +579,29 @@ AND (lat, lon) IN (
 # top 3 unique, limit by 3, nested, group by department, a Join?
 SELECT DISTINCT d.name as Department,  e.name as Employee, e.salary as Salary
 FROM Employee e JOIN Department d on e.departmentId = d.id
+WHERE 
+(
+    SELECT COUNT(DISTINCT salary)
+    FROM Employee e2
+    WHERE e2.departmentId = e.departmentId AND e2.salary >= e.salary
+) <= 3
 ORDER BY d.name, e.salary DESC
-
 # top 3? 
 # and group Departments 
 # where?
 
-
+SELECT d.name as Department,
+       e.name as Employee,
+       e. salary as Salary
+FROM Employee e 
+     JOIN Department d on e.departmentId = d.id
+WHERE (
+    SELECT COUNT(DISTINCT salary)
+    FROM Employee e2
+    WHERE e2.departmentId = e.departmentId AND e2.salary >= e.salary
+) <= 3
+ORDER By 
+    Department, Salary DESC
 
 /* Advanced String Functions / Regex / Clause */
 /* Q1: 1667. Fix Names in a Table */
