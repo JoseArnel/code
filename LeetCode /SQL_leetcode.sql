@@ -55,9 +55,9 @@ AND (lat, lon) IN (
     HAVING COUNT(*) = 1
 )
 
+/* SQL 50, Fifty questions in 30 days */
 
-/* SQL 50  
-Select */
+/* SELECT */
 /* Q1: 1757. Recyclable and Low Fat Products */
 SELECT product_id
 FROM Products
@@ -96,12 +96,9 @@ SELECT product_name, year, price
 FROM Sales
 LEFT JOIN Product ON Sales.product_id = Product.product_id
 
-/* PSUEDO
-Counting How many Transactions We're not made / Visits where no transactions were made
-Output: customer_id, count_no_trans
-Join Where Visit id equals
-Count, Where */
 /* Q3: 1581. Customer Who Visited but Did Not Make Any Transactions */
+/* Psuedo: Count how many transactions we're not made over visits of no transaction, 
+Output: customer_id, counts_no_trans, Functions Used: Join, Where visit.. equals Count Where? */
 SELECT customer_id, count(visit_id) as count_no_trans
 FROM visits
 WHERE visit_id not in(
@@ -255,11 +252,8 @@ SELECT customer_id
 FROM Customer 
 GROUP BY customer_id
 HAVING COUNT(DISTINCT product_key) = (SELECT COUNT(product_key) FROM Product)
-/* review solutionn */
-
 
 /* Advanced Select and Joins */
-
 /* Q1: 1731. The Number of Employees Which Report to Each Employee */
 SELECT e1.employee_id, e1.name, COUNT(e2.reports_to) as reports_count, ROUND(AVG(e2.age)) as average_age
 FROM Employees e1
@@ -281,7 +275,7 @@ SELECT x, y, z, IF(x+y > z and x+z > y and z+y > x, "Yes", "No") as triangle
 FROM Triangle
 
 /* Q4: 180. Consecutive Numbers */
-# appear 3 times consecutively
+-- appear 3 times consecutively
 SELECT DISTINCT l1.num as ConsecutiveNums
 FROM Logs l1
 INNER JOIN Logs l2 
@@ -290,6 +284,7 @@ INNER JOIN Logs l3
     ON l3.id = l2.id + 1 AND l3.num = l2.num
 
 /* Q5: 1164. Product Price at a Given Date */
+/* Psuedo. */
 # find all products, 2019-08-16, 
 # and products after ^ - 10 
 # get prices before first / on 
