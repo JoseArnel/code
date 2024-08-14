@@ -572,24 +572,7 @@ AND (lat, lon) IN (
 #  order by average_rating desc, results asc limit 1
 
 /* Q7: 185. Department Top Three Salaries */
-# Write your MySQL query statement below
-# WHO EARNS THE MOST 
-# a higher earner is, the top 3 unique salaries of the department
-# Employee table, department table,
-# top 3 unique, limit by 3, nested, group by department, a Join?
-SELECT DISTINCT d.name as Department,  e.name as Employee, e.salary as Salary
-FROM Employee e JOIN Department d on e.departmentId = d.id
-WHERE 
-(
-    SELECT COUNT(DISTINCT salary)
-    FROM Employee e2
-    WHERE e2.departmentId = e.departmentId AND e2.salary >= e.salary
-) <= 3
-ORDER BY d.name, e.salary DESC
-# top 3? 
-# and group Departments 
-# where?
-
+-- PSUEDO: Who Earns the Most, 1.a higher earner, top 3 unqiue salaries, Top 3 unique, limit by 3, nested, group by, departments, a join join
 SELECT d.name as Department,
        e.name as Employee,
        e. salary as Salary
