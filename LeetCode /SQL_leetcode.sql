@@ -577,10 +577,13 @@ AND (lat, lon) IN (
 # a higher earner is, the top 3 unique salaries of the department
 # Employee table, department table,
 # top 3 unique, limit by 3, nested, group by department, a Join?
-SELECT d.name as Department, e.name as Employee, e.salary as Salary
+SELECT DISTINCT d.name as Department,  e.name as Employee, e.salary as Salary
 FROM Employee e JOIN Department d on e.departmentId = d.id
-ORDER BY e.salary DESC
+ORDER BY d.name, e.salary DESC
 
+# top 3? 
+# and group Departments 
+# where?
 
 
 
