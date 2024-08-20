@@ -284,39 +284,8 @@ INNER JOIN Logs l3
     ON l3.id = l2.id + 1 AND l3.num = l2.num
 
 /* Q5: 1164. Product Price at a Given Date */
-/* Psuedo. */
-# find all products, 2019-08-16, 
-# and products after ^ - 10 
-# get prices before first / on 
-# two test cases
-# use of union
-
-# two case scenerios
-# find products ON 2019-08-16
-# anything before is 10
-
-# find products in and before 
-# anything before is 10
-
-SELECT product_id, 10 as price
-FROM Products
-WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Products WHERE change_date <= '2019-08-16' GROUP BY product_id)
-UNION
-SELECT product_id, new_price as price
-FROM Products
-WHERE (product_id, change_date) IN (SELECT product_id, MAX(change_date) FROM Products WHERE change_date <= '2019-08-16' GROUP BY product_id)
-GROUP BY product_id
-ORDER BY product_id
-SELECT
-CASE 
-    WHEN change_date = '2019-08-16'
-        THEN product_id
-    WHEN change_date > '2019-08-16'
-        THEN new_price - 10
-END AS product_id, new_price as price
-FROM Products
-GROUP BY product_id
-
+/* Psuedo: Two case scenerious, find products from 2019-08-16, anything before is 10
+find products in and before anything, anything before is 10, use of union  */
 # run it back practice
 SELECT product_id, new_price as price
 FROM Products
